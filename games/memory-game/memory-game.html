@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Game</title>
+    <style>
+        :root {
+            --button-radius: 150px;
+            --content-size: 450px;
+        }
+
+        body {
+            margin: 0;
+            transition: 600ms;
+        }
+
+        button {
+            border-radius: 50%;
+            border: none;
+            height: var(--button-radius);
+            width: var(--button-radius);
+            font-size: 20px;
+            transition: 400ms;
+        }
+
+        button:hover {
+            cursor: pointer;
+        }
+
+        #wrapper {
+            display: flex;
+            min-height: 100vh;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #buttons {
+            width: var(--content-size);
+            height: var(--content-size);
+        }
+
+        #line1 {
+            min-width: 100%;
+            height: 150px;
+            text-align: center;
+        }
+
+        #line2 {
+            min-width: 100%;
+            height: 150px;
+        }
+
+        #line3 {
+            min-width: 100%;
+            height: 150px;
+            text-align: center;
+        }
+
+        #a {
+            background-color: lightcoral;
+        }
+
+        #b {
+            background-color: steelblue;
+            float: left;
+            align-items: center;
+        }
+
+        #c {
+            background-color: darkolivegreen;
+            float: right;
+            align-items: center;
+        }
+
+        #d {
+            background-color: peru;
+        }
+    </style>
+</head>
+<body id="body">
+
+    <div id="wrapper">
+        <div id="buttons">
+            <div id="line1">
+                <button id="a" onclick="buttonPressed('a')">A</button>
+            </div>
+            <div id="line2">
+                <button id="b" onclick="buttonPressed('b')">B</button>
+                <button id="c" onclick="buttonPressed('c')">C</button>
+            </div>
+            <div id="line3">
+                <button id="d" onclick="buttonPressed('d')">D</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        const buttons = {
+            a: document.getElementById('a'),
+            b: document.getElementById('b'),
+            c: document.getElementById('c'),
+            d: document.getElementById('d')
+        }
+        const body = document.getElementById('body')
+
+        let buttonSequence = [] // array of the random generated button ids
+        let score = 0
+        let index = 0
+        let pressed = 0
+        let running = false
+
+
+        window.onload = function() {
+            generateNewButton()
+        }
+
+        function generateNewButton() {
+            body.style.backgroundColor = '#333'
+            running = true
+            index = 0
+            buttonSequence.push(random())
+            animate()
+        }
+
+        function animate() {
+
+            if (buttonSequence[index] === 'a') {
+                buttons.a.style.opacity = .2
+            } else if (buttonSequence[index] === 'b') {
+                buttons.b.style.opacity = .2
+            }
+            else if (buttonSequence[index] === 'c') {
+                buttons.c.style.opacity = .2
+            } else {
+                buttons.d.style.opacity = .2
+            }
+
+            setTimeout(() => {
+                buttons.a.style.opacity = 1
+                buttons.b.style.opacity = 1
+                buttons.c.style.opacity = 1
+                buttons.d.style.opacity = 1  
+            }, 500)
+
+            index++
+            animationCooldown()
+
+        }
+
+        function animationCooldown() {
+            if(index < buttonSequence.length) {
+                setTimeout(() => {
+                    animate()
+                }, 800)
+            } else {
+                setTimeout(() => {
+                    body.style.backgroundColor = '#fff'
+                }, 800)
+                index = 0
+                running = false
+                return
+            }
+        }
+        
+        function buttonPressed(button) {
+
+
+            console.log(`button ${button} pressed`)
+            
+
+            if(running === false) {
+                pressed = button
+                
+                if(pressed === buttonSequence[index]) {
+                    index++
+                    if(index >= buttonSequence.length) {
+                        score++
+                        console.log(score)
+                        generateNewButton()
+                    }
+                } else {
+                    gameOver()
+                }
+            } else {
+                return
+            }
+        }
+
+        function random() {
+            const random = Math.random()
+            if(random < 0.25) {
+                return 'a'
+            } else if (random < 0.5) {
+                return 'b'
+            } else if (random < 0.75) {
+                return 'c'
+            } else {
+                return 'd'
+            }
+        }
+
+        function gameOver() {
+            alert('Game Over!')
+        }
+
+    </script>
+</body>
+</html>
