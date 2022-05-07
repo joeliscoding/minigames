@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+
+    <link rel="stylesheet" href="/assets/css/fontawesome.min.css">
+    <link rel="stylesheet" href="/assets/css/all.min.css">
+
+    <style>
+
+        :root {
+            --button-size: 147.3px;
+            --content-size: 450px;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        #wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 100%;
+            min-height: 100vh;
+        }
+
+        #content {
+            width: var(--content-size);
+            height: var(--content-size);
+            background-color: #aaa;
+        }
+
+        #line1 #line2 #line3 {
+            width: var(--content-size);
+            height: var(--button-size);
+        }
+
+        .button {
+            width: var(--button-size);
+            height: var(--button-size);
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            display: inline-block;
+            background-image: none;
+            background-size: contain;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="content">
+            <div id="line1">
+                <div class="button" id="tl" onclick="clicked('tl')"></div>
+                <div class="button" id="tm" onclick="clicked('tm')"></div>
+                <div class="button" id="tr" onclick="clicked('tr')"></div>
+            </div>
+            <div id="line2">
+                <div class="button" id="ml" onclick="clicked('ml')"></div>
+                <div class="button" id="mm" onclick="clicked('mm')"></div>
+                <div class="button" id="mr" onclick="clicked('mr')"></div>
+            </div>
+            <div id="line3">
+                <div class="button" id="bl" onclick="clicked('bl')"></div>
+                <div class="button" id="bm" onclick="clicked('bm')"></div>
+                <div class="button" id="br" onclick="clicked('br')"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        const buttons = {
+            tl: document.getElementById('tl'),
+            tm: document.getElementById('tm'),
+            tr: document.getElementById('tr'),
+            ml: document.getElementById('ml'),
+            mm: document.getElementById('mm'),
+            mr: document.getElementById('mr'),
+            bl: document.getElementById('bl'),
+            bm: document.getElementById('bm'),
+            br: document.getElementById('br')
+        }
+
+        function clicked(button) {
+            console.log(`clicked ${button}`)
+            if(button === tl) buttons.tl.style.backgroundImage = 'url()'
+        }
+    </script>
+</body>
+</html>
